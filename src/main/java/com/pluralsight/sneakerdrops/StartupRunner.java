@@ -34,13 +34,47 @@ public class StartupRunner implements CommandLineRunner {
         while (running) {
             System.out.println("\n=== Game Library ===");
             System.out.println("1) List all sneakers");
+            System.out.println("2) List sneakers by model");
+            System.out.println("3) List sneakers by price");
+            System.out.println("4) List sneakers by year");
             System.out.println("0) Quit");
             System.out.print("Choose: ");
             switch (scanner.nextInt()) {
                 case 1 -> listSneakers();
+                case 2 -> findByModel(scanner);
+                case 3 -> findByPrice(scanner);
+                case 4 -> findByYear(scanner);
                 case 0 -> running = false;
                 default -> System.out.println("Unknown option.");
             }
+        }
+    }
+
+    public void findByModel(Scanner scanner) {
+        scanner.nextLine();
+        System.out.println("Model");
+        String model = scanner.nextLine();
+
+        for (Sneaker s : sneakerRepository.findByModelContaining(model)) {
+            System.out.println(s.getModel() + " (" + s.getReleaseYear() + ")");
+        }
+    }
+
+    public void findByPrice(Scanner scanner) {
+        System.out.println("Max Price");
+        int price = scanner.nextInt();
+
+        for (Sneaker s : sneakerRepository.findByPriceLessThan(price)) {
+            System.out.println(s.getModel() + " (" + s.getReleaseYear() + ")");
+        }
+    }
+
+    public void findByYear(Scanner scanner) {
+        System.out.println("Year");
+        int year = scanner.nextInt();
+
+        for (Sneaker s : sneakerRepository.findByReleaseYear(year)) {
+            System.out.println(s.getModel() + " (" + s.getReleaseYear() + ")");
         }
     }
 
@@ -64,7 +98,7 @@ public class StartupRunner implements CommandLineRunner {
     private void listSneakers() {
         System.out.println("You have " + sneakerRepository.count() + " Sneakers:");
         for (Sneaker sneaker : sneakerRepository.findAll()) {
-            System.out.println(sneaker.getId() + " - " + sneaker.getModel() + " - " + sneaker.getReleaseYear() + " ($" + sneaker.getPrice()  + ")");
+            System.out.println(sneaker.getId() + " - " + sneaker.getModel() + " - " + sneaker.getReleaseYear() + " ($" + sneaker.getPrice() + ")");
         }
 
     }
