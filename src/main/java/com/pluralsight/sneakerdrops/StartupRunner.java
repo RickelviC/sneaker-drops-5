@@ -1,8 +1,10 @@
 package com.pluralsight.sneakerdrops;
 
 
-import com.pluralsight.sneakerdrops.data.*;
-import com.pluralsight.sneakerdrops.models.*;
+import com.pluralsight.sneakerdrops.data.BrandRepository;
+import com.pluralsight.sneakerdrops.data.SneakerRepository;
+import com.pluralsight.sneakerdrops.models.Brand;
+import com.pluralsight.sneakerdrops.models.Sneaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
